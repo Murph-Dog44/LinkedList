@@ -1,3 +1,6 @@
+// Taiyo Murphy
+//Linked List Project
+
 /*
 Problem:  Write a program that keeps and manipulates a linked list of
 	    String data. The data will be provided by the user one item at a time.
@@ -14,39 +17,92 @@ Problem:  Write a program that keeps and manipulates a linked list of
 	Output:  the results to the screen of each menu
 	    choice, and error messages where appropriate.
 */
+
 public class LinkedList{
 
+  
   //instance varialbes go here (think about what you need to keep track of!)
-
+  ListNode head;
   //constructors go here
+  public LinkedList(){
+    head = null;
+  }
 
+  public LinkedList(String line, ListNode next){
+    head = new ListNode(line, next);
+  }
 
   //precondition: the list has been initialized
   //postcondition: the ListNode containing the appropriate value has been added and returned
-  public ListNode addAValue(String line)
-  {
-    return null;
-  }
+  public ListNode addAValue(String line) {
+    // If the list is empty, set head to the new node
+    if (head == null) {
+        head = new ListNode(line, null);
+        return head;
+    }
+
+    if (head.getValue().compareTo(line) > 0) {
+        head = new ListNode(line, head);
+        return head;
+    }
+
+    ListNode currNode = head;
+    while (currNode.getNext() != null && currNode.getNext().getValue().compareTo(line) < 0) {
+        currNode = currNode.getNext();
+    }
+
+    // Insert new node
+    ListNode newNode = new ListNode(line, currNode.getNext());
+    currNode.setNext(newNode);
+    return newNode;
+}
 
   //precondition: the list has been initialized
   //postcondition: the ListNode containing the appropriate value has been deleted and returned.
   //if the value is not in the list returns null
   public ListNode deleteAValue(String line)
   {
-    return null;
+    if (head == null) {
+        return new ListNode(null,null);
+    }
+    ListNode currNode = head;
+
+    if (currNode.getValue() != null && currNode.getValue().equals(line)) {
+        ListNode temp = head;
+        head = currNode.getNext();
+        // After removal, head may be null, so next call will return null safely
+        return temp;
+    }
+    // If head was removed above, next call will have head == null
+    while (currNode != null && currNode.getNext() != null) {
+        ListNode nextNode = currNode.getNext();
+        if (nextNode.getValue() != null && nextNode.getValue().equals(line)) {
+            ListNode toDelete = nextNode;
+            currNode.setNext(toDelete.getNext());
+            return toDelete;
+        }
+        currNode = nextNode;
+    }
+    return new ListNode(null,null);
   }
 
   //precondition: the list has been initialized
   //postconditions: returns a string containing all values appended together with spaces between.
   public String showValues()
   {
-    return null;
+    String fin = "";
+    ListNode currNode = head;
+    while (currNode != null && currNode.getValue() != null){
+      fin = fin + currNode.getValue() + " ";
+      currNode = currNode.getNext();
+    }
+    return fin;
   }
 
   //precondition: the list has been initialized
   //postconditions: clears the list.
   public void clear()
   {
-  
+    head = null;
   }
 }
