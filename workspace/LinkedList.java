@@ -31,9 +31,17 @@ public class LinkedList{
   public LinkedList(String line, ListNode next){
     head = new ListNode(line, next);
   }
+  public LinkedList(ListNode a){
+    head = a;
+  }
 
   //precondition: the list has been initialized
   //postcondition: the ListNode containing the appropriate value has been added and returned
+
+  public ListNode getHead(){
+    return head;
+  }
+
   public ListNode addAValue(String line) {
     // If the list is empty, set head to the new node
     if (head == null) {
@@ -105,4 +113,107 @@ public class LinkedList{
   {
     head = null;
   }
+
+  public void reverse() {
+    ListNode prev = null;
+    ListNode curr = head;
+    while (curr != null) {
+        ListNode next = curr.getNext();
+        curr.setNext(prev);
+        prev = curr;
+        curr = next;
+    }
+    head = prev;
+  }
+
+  public void nReverse(int n){
+    ListNode prev = null;
+    ListNode curr = head;
+    while (curr != null) {
+      int x = 0;
+      ListNode first = curr; // set tentative values for first and last
+      ListNode last = first;
+      while (curr != null && x<n){
+        if (x == 0){
+          first = curr;
+        } 
+        if (x == n-1 || curr.getNext() == null){
+          last = curr;
+        }
+        x+=1;
+        curr = curr.getNext();
+      }
+      
+      ListNode aft = last.getNext();
+      last.setNext(null);
+      LinkedList temp = new LinkedList(first);
+      temp.reverse();
+
+      // first.setNext(aft);
+      ListNode mark = temp.getHead();
+
+
+      // probably the problem
+      while (mark.getNext() != null){
+        mark = mark.getNext();
+      }
+      mark.setNext(aft);
+      
+
+      if (prev == null){
+        head = temp.getHead();
+        System.out.println("head is "+ head.getValue());
+      } else {
+        System.out.println("reassign "+ prev.getNext().getValue() + " to "+ temp.getHead().getValue());
+        prev.setNext(temp.getHead());
+        
+      }
+      prev = mark;
+    }
+  }
+
+  //   public void nReverse(int n){
+  //   ListNode prev = null;
+  //   ListNode curr = head;
+  //   while (curr != null) {
+  //     int x = 0;
+  //     ListNode first = curr; // set tentative values for first and last
+  //     ListNode last = first;
+  //     while (curr != null && x<n){
+
+  //       ListNode next = curr.getNext();
+  //       curr.setNext(prev);
+  //       prev = curr;
+  //       curr = next;
+  //       x+=1;
+  //     }
+      
+  //     ListNode aft = last.getNext();
+  //     last.setNext(null);
+  //     LinkedList temp = new LinkedList(first);
+  //     temp.reverse();
+
+  //     // first.setNext(aft);
+  //     ListNode mark = temp.getHead();
+
+      
+  //     // probably the problem
+  //     while (mark.getNext() != null){
+  //       mark = mark.getNext();
+  //     }
+  //     mark.setNext(aft);
+      
+
+  //     if (prev == null){
+  //       head = temp.getHead();
+  //       System.out.println("head is "+ head.getValue());
+  //     } else {
+  //       System.out.println("reassign "+ prev.getNext().getValue() + " to "+ temp.getHead().getValue());
+  //       prev.setNext(temp.getHead());
+        
+  //     }
+  //     prev = mark;
+  //   }
+  // }
 }
+
