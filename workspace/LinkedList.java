@@ -114,6 +114,8 @@ public class LinkedList{
     head = null;
   }
 
+  // precondition: the list has been initialized
+  // postcondition: reverses the order of the nodes in the list. 
   public void reverse() {
     ListNode prev = null;
     ListNode curr = head;
@@ -126,6 +128,8 @@ public class LinkedList{
     head = prev;
   }
 
+  // precondition: n>0, the list has been initialized.
+  // postcondition: each set of n nodes in the linkedList will be reversed
   public void nReverse(int n){
     ListNode prev = null;
     ListNode curr = head;
@@ -172,7 +176,7 @@ public class LinkedList{
     }
   }
 
-  //   public void nReverse(int n){
+  // public void nReverse(int n){
   //   ListNode prev = null;
   //   ListNode curr = head;
   //   while (curr != null) {
@@ -188,31 +192,6 @@ public class LinkedList{
   //       x+=1;
   //     }
       
-  //     ListNode aft = last.getNext();
-  //     last.setNext(null);
-  //     LinkedList temp = new LinkedList(first);
-  //     temp.reverse();
-
-  //     // first.setNext(aft);
-  //     ListNode mark = temp.getHead();
-
-      
-  //     // probably the problem
-  //     while (mark.getNext() != null){
-  //       mark = mark.getNext();
-  //     }
-  //     mark.setNext(aft);
-      
-
-  //     if (prev == null){
-  //       head = temp.getHead();
-  //       System.out.println("head is "+ head.getValue());
-  //     } else {
-  //       System.out.println("reassign "+ prev.getNext().getValue() + " to "+ temp.getHead().getValue());
-  //       prev.setNext(temp.getHead());
-        
-  //     }
-  //     prev = mark;
   //   }
   // }
 }
