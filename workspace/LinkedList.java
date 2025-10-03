@@ -130,53 +130,47 @@ public class LinkedList{
 
   // precondition: n>0, the list has been initialized.
   // postcondition: each set of n nodes in the linkedList will be reversed
-  public void nReverse(int n){
-    ListNode prev = null;
-    ListNode curr = head;
-    while (curr != null) {
-      int x = 0;
-      ListNode first = curr; // set tentative values for first and last
-      ListNode last = first;
-      while (curr != null && x<n){
-        if (x == 0){
-          first = curr;
-        } 
-        if (x == n-1 || curr.getNext() == null){
-          last = curr;
+  public void nReverse(int n) {
+    if (n <= 1 || head == null) return;
+
+    // dummy -> head
+    ListNode dummy = new ListNode(null, head);
+    ListNode prevEnd = dummy;
+    ListNode start = head;
+
+    while (start != null) {
+        ListNode groupEnd = start;
+        int x = 1;
+        while (x < n && groupEnd.getNext() != null) {
+            groupEnd = groupEnd.getNext();
+            x++;
         }
-        x+=1;
-        curr = curr.getNext();
-      }
-      
-      ListNode aft = last.getNext();
-      last.setNext(null);
-      LinkedList temp = new LinkedList(first);
-      temp.reverse();
 
-      // first.setNext(aft);
-      ListNode mark = temp.getHead();
+        ListNode nextGroupStart = groupEnd.getNext();
 
+        ListNode prev = nextGroupStart;
+        ListNode curr = start;
+        while (curr != nextGroupStart) {
+            ListNode next = curr.getNext();
+            curr.setNext(prev);
+            prev = curr;
+            curr = next;
+        }
 
-      // probably the problem
-      while (mark.getNext() != null){
-        mark = mark.getNext();
-      }
-      mark.setNext(aft);
-      
-
-      if (prev == null){
-        head = temp.getHead();
-        System.out.println("head is "+ head.getValue());
-      } else {
-        System.out.println("reassign "+ prev.getNext().getValue() + " to "+ temp.getHead().getValue());
-        prev.setNext(temp.getHead());
-        
-      }
-      prev = mark;
+        prevEnd.setNext(groupEnd);
+        prevEnd = start;
+        start = nextGroupStart;
     }
-  }
 
-  // public void nReverse(int n){
+    head = dummy.getNext();
+  }
+}
+
+
+
+  // // precondition: n>0, the list has been initialized.
+  // // postcondition: each set of n nodes in the linkedList will be reversed
+  // public void xnReverse(int n){
   //   ListNode prev = null;
   //   ListNode curr = head;
   //   while (curr != null) {
@@ -184,15 +178,40 @@ public class LinkedList{
   //     ListNode first = curr; // set tentative values for first and last
   //     ListNode last = first;
   //     while (curr != null && x<n){
-
-  //       ListNode next = curr.getNext();
-  //       curr.setNext(prev);
-  //       prev = curr;
-  //       curr = next;
+  //       if (x == 0){
+  //         first = curr;
+  //       } 
+  //       if (x == n-1 || curr.getNext() == null){
+  //         last = curr;
+  //       }
   //       x+=1;
+  //       curr = curr.getNext();
   //     }
       
+  //     ListNode aft = last.getNext();
+  //     last.setNext(null);
+  //     LinkedList temp = new LinkedList(first);
+  //     temp.reverse();
+
+  //     // first.setNext(aft);
+  //     ListNode mark = temp.getHead();
+
+
+  //     // probably the problem
+  //     while (mark.getNext() != null){
+  //       mark = mark.getNext();
+  //     }
+  //     mark.setNext(aft);
+      
+
+  //     if (prev == null){
+  //       head = temp.getHead();
+  //       System.out.println("head is "+ head.getValue());
+  //     } else {
+  //       System.out.println("reassign "+ prev.getNext().getValue() + " to "+ temp.getHead().getValue());
+  //       prev.setNext(temp.getHead());
+        
+  //     }
+  //     prev = mark;
   //   }
   // }
-}
-

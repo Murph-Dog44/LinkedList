@@ -34,7 +34,7 @@ public class Main{
           else if(input.equals("reverse")){
             list.reverse();
           }
-          else if(input.equals("xnreverse"))
+          else if(input.equals("nreverse"))
           {
             list.nReverse(2);
           }
